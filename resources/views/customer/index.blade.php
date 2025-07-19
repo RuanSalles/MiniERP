@@ -1,6 +1,6 @@
 @extends('layout.layout')
 @section('container')
-    <a class="btn btn-primary" href="{{route('customer.create')}}">Novo Usuário</a>
+    <a class="btn btn-primary" href="{{route('customers.create')}}">Novo Usuário</a>
     <table class="table table-bordered table-striped align-middle mt-4">
         <thead class="table-dark">
         <tr>

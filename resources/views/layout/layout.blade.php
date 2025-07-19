@@ -41,6 +41,7 @@
 </head>
 <body>
 
+
 <!-- Navbar -->
 <nav class="navbar navbar-dark bg-dark sticky-top shadow">
     <div class="container-fluid">
@@ -62,29 +63,34 @@
                         <a class="nav-link active" href="#"><i class="bi bi-speedometer2"></i> Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('customer.index')}}"><i class="bi bi-people"></i> Clientes</a>
+                        <a class="nav-link" href="{{route('customers.index')}}"><i class="bi bi-people"></i>
+                            Clientes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-box"></i> Produtos</a>
+                        <a class="nav-link" href="{{route('products.index')}}"><i class="bi bi-box"></i> Produtos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"><i class="bi bi-receipt"></i> Pedidos</a>
                     </li>
-{{--                    <li class="nav-item">--}}
-{{--                        <a class="nav-link" href="#"><i class="bi bi-gear"></i> Configurações</a>--}}
-{{--                    </li>--}}
+                    {{--                    <li class="nav-item">--}}
+                    {{--                        <a class="nav-link" href="#"><i class="bi bi-gear"></i> Configurações</a>--}}
+                    {{--                    </li>--}}
                 </ul>
             </div>
         </nav>
+
         <!-- Main Content -->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 content">
-        @yield('container')
+            <x-flash-message type="success"/>
+            <x-flash-message type="error"/>
+            <x-flash-message type="warning"/>
+            <x-flash-message type="info"/>
+            @yield('container')
         </main>
 
 
     </div>
 </div>
-
 
 
 <!-- Bootstrap 5 JS CDN (com Popper) -->

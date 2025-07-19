@@ -11,23 +11,8 @@
         </div>
     @endif
 
-    @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
-
-    @if (session('error'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{ session('error') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
-
-
     <!-- Formulário de Cadastro de Cliente -->
-    <form id="customerForm" method="POST" action="{{route('customer.store')}}">
+    <form id="customerForm" method="POST" action="{{route('customers.store')}}">
         @csrf
         <!-- Sessão: Informações Pessoais -->
         <h4 class="mt-4 mb-3">Informações Pessoais</h4>
