@@ -72,9 +72,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#"><i class="bi bi-receipt"></i> Pedidos</a>
                     </li>
-                    {{--                    <li class="nav-item">--}}
-                    {{--                        <a class="nav-link" href="#"><i class="bi bi-gear"></i> Configurações</a>--}}
-                    {{--                    </li>--}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('carts.index')}}"><i class="bi bi-gear"></i> Loja</a>
+                    </li>
                 </ul>
             </div>
         </nav>
