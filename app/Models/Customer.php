@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Customer extends Model
 {
@@ -14,8 +14,9 @@ class Customer extends Model
         'address_id',
     ];
 
-    public function address(): HasOne
+    public function address(): BelongsTo
     {
-        return $this->hasOne(Address::class);
+        return $this->belongsTo(Address::class, 'address_id');
     }
+
 }

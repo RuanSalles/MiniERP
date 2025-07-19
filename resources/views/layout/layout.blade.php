@@ -60,7 +60,7 @@
             <div class="offcanvas-body p-0">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                        <a class="nav-link active" href="/"><i class="bi bi-speedometer2"></i> Dashboard</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('customers.index')}}"><i class="bi bi-people"></i>

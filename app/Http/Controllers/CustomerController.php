@@ -17,7 +17,9 @@ class CustomerController extends Controller
     }
 
     public function index() {
-        $customers = Customer::all()->withRelationshipAutoloading();
+
+        $customers = Customer::with('address')->get();
+
         return view('customer.index', compact('customers'));
     }
 
@@ -33,9 +35,9 @@ class CustomerController extends Controller
 
             $customer = Customer::create($validated);
 
-            $this->customerService->vinculateAddress($validated, $customer);
+            $this->customerService->vinculateAddress($request->all(), $customer);
 
-            return redirect()->route('customer.index')
+            return redirect()->route('customers.index')
                 ->with('success', 'Cliente cadastrado com sucesso!');
 
         } catch (\Exception $e) {

@@ -15,7 +15,6 @@ class CustomerService
             DB::beginTransaction();
 
             $address = Address::create($payload);
-
             $customer->update(['address_id' => $address->id]);
 
             DB::commit();

@@ -41,12 +41,11 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         try {
-
             $validated = $request->validated();
             $product = Product::create($validated);
 
-            if($request->post(
-                'variations',
+            if ($request->post(
+                'variances',
             )) {
                 $this->productService->addProductVariance($request->all(), $product);
             }
@@ -67,12 +66,19 @@ class ProductController extends Controller
         return view('product.create', compact('product'));
     }
 
-    public function update(ProductRequest $request, Product $product) {
-
+    public function update(ProductRequest $request, Product $product)
+    {
 
         $validated = $request->validated();
-
         $product->update($validated);
+
+        // Limpa variações existentes
+        $product->variances()->delete();
+        if ($request->post(
+            'variances',
+        )) {
+            $this->productService->addProductVariance($request->all(), $product);
+        }
 
         return redirect()->route('products.index')->with('success', 'Produto Atualizado com Sucesso!.');
     }

@@ -5,7 +5,7 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect()->route('customer.index');
+    return view('home.home');
 });
 
 Route::resource('customers', CustomerController::class);

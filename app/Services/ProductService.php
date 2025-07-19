@@ -13,12 +13,11 @@ class ProductService
         try {
             DB::beginTransaction();
 
-            foreach ($payload['variations'] as $variation) {
+            foreach ($payload['variances'] as $variation) {
                 $product->variances()->create($variation);
             }
 
             DB::commit();
-
         } catch (\Throwable $e) {
             DB::rollBack();
 

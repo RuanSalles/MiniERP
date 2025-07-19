@@ -41,12 +41,12 @@
         </div>
 
         <!-- Container das variações -->
-        <div id="variations-container" class="mb-3">
+        <div id="variances-container" class="mb-3">
             <label class="form-label">Variações do Produto</label>
 
-            <div id="variation-list"></div>
+            <div id="variance-list"></div>
 
-            <button type="button" class="btn btn-outline-primary mt-2" id="add-variation">+ Adicionar Variação</button>
+            <button type="button" class="btn btn-outline-primary mt-2" id="add-variance">+ Adicionar Variação</button>
         </div>
 
 
@@ -55,22 +55,22 @@
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-    <script type="text/template" id="variation-template">
-        <div class="variation-item border rounded p-3 mb-2 position-relative">
-            <button type="button" class="btn-close position-absolute top-0 end-0 remove-variation" aria-label="Remover"></button>
+    <script type="text/template" id="variance-template">
+        <div class="variance-item border rounded p-3 mb-2 position-relative">
+            <button type="button" class="btn-close position-absolute top-0 end-0 remove-variance" aria-label="Remover"></button>
 
             <div class="mb-2">
                 <label class="form-label">Cor</label>
-                <input type="text" name="variations[__index__][color]" class="form-control" required>
+                <input type="text" name="variances[__index__][color]" class="form-control" required>
             </div>
 
             <div class="mb-2">
                 <label class="form-label">Tamanho</label>
-                <input type="text" name="variations[__index__][size]" class="form-control" required>
+                <input type="text" name="variances[__index__][size]" class="form-control" required>
             </div>
 
             <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="variations[__index__][isPrinted]" value="1">
+                <input type="checkbox" class="form-check-input" name="variances[__index__][isPrinted]" value="1">
                 <label class="form-check-label">Estampado</label>
             </div>
         </div>
@@ -85,14 +85,14 @@
             @isset($product)
             @if ($product->variances && $product->variances->count())
             @foreach ($product->variances as $i => $variance)
-            const template_{{ $i }} = $('#variation-template').html()
+            const template_{{ $i }} = $('#variance-template').html()
                 .replace(/__index__/g, {{ $i }});
-            $('#variation-list').append(template_{{ $i }});
+            $('#variance-list').append(template_{{ $i }});
 
-            $(`[name="variations[{{ $i }}][color]"]`).val("{{ $variance->color }}");
-            $(`[name="variations[{{ $i }}][size]"]`).val("{{ $variance->size }}");
+            $(`[name="variances[{{ $i }}][color]"]`).val("{{ $variance->color }}");
+            $(`[name="variances[{{ $i }}][size]"]`).val("{{ $variance->size }}");
             @if ($variance->isPrinted)
-            $(`[name="variations[{{ $i }}][isPrinted]"]`).prop('checked', true);
+            $(`[name="variances[{{ $i }}][isPrinted]"]`).prop('checked', true);
             @endif
                 @endforeach
                 index = {{ $product->variances->count() }};
@@ -100,14 +100,14 @@
             @endisset
 
 
-            $('#add-variation').on('click', function () {
-                const template = $('#variation-template').html().replace(/__index__/g, index);
-                $('#variation-list').append(template);
+            $('#add-variance').on('click', function () {
+                const template = $('#variance-template').html().replace(/__index__/g, index);
+                $('#variance-list').append(template);
                 index++;
             });
 
-            $(document).on('click', '.remove-variation', function () {
-                $(this).closest('.variation-item').remove();
+            $(document).on('click', '.remove-variance', function () {
+                $(this).closest('.variance-item').remove();
             });
         });
     </script>
