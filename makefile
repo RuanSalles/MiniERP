@@ -10,7 +10,7 @@ migrate:
 	docker exec -it miniERP-nginx php artisan migrate
 # DERRUBA E LEVANTA TODAS AS TABELAS DO BANCO
 fresh:
-	docker exec -it miniERP-nginx php artisan migrate:fresh
+	docker exec -it miniERP-nginx php artisan migrate:fresh --seed
 # EXECUTA ROLLBACK DAS AÇÕES DO BANCO
 rollback:
 	docker exec -it miniERP-nginx php artisan migrate:rollback

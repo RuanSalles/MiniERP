@@ -23,5 +23,5 @@
         <!-- Outras linhas podem ser geradas dinamicamente via Blade ou JavaScript -->
         </tbody>
     </table>
-
+    {{ $customers->links() }}
 @endsection
