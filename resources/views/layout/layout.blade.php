@@ -70,7 +70,7 @@
                         <a class="nav-link" href="{{route('products.index')}}"><i class="bi bi-box"></i> Produtos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-receipt"></i> Pedidos</a>
+                        <a class="nav-link" href="{{route('stocks.index')}}"><i class="bi bi-receipt"></i> Estoque</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('carts.index')}}"><i class="bi bi-gear"></i> Loja</a>
