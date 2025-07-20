@@ -31,6 +31,18 @@
             </div>
 
             <div class="mb-3">
+                <label for="quantity" class="form-label">Limite de Uso</label>
+                <input type="number"
+                       id="quantity"
+                       name="quantity"
+                       class="form-control"
+                       min="1"
+                       step="1"
+                       required
+                       value="{{ old('quantity', $coupon->quantity ?? '') }}">
+            </div>
+
+            <div class="mb-3">
                 <label for="value" class="form-label">Valor</label>
                 <input type="number" class="form-control" id="value" name="value" step="0.01"
                        value="{{ old('value', $coupon->value ?? '') }}" required>

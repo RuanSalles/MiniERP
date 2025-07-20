@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('code');
+            $table->integer('quantity');
             $table->enum('type', ['fixed', 'percentage'])->default('percentage');
             $table->decimal('value', 8, 2)->default(0);
             $table->dateTime('expires_at')->nullable();

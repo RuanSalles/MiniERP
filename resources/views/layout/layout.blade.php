@@ -78,9 +78,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('carts.index')}}"><i class="bi bi-shop"></i> Loja</a>
                     </li>
+                    @if(session('cart'))
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('checkout')}}"><i class="bi bi-cart-check-fill"></i> Finalizar Compra</a>
                     </li>
+                    @endif
                 </ul>
             </div>
         </nav>

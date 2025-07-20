@@ -29,6 +29,7 @@ class CouponRequest extends FormRequest
             'type' => ['required', Rule::in(['fixed', 'percentage'])],
             'value' => 'required|numeric',
             'expires_at' => ['required', 'date', 'after:now'],
+            'quantity' => 'required|integer',
         ];
     }
 }
