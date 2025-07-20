@@ -13,11 +13,11 @@
                             <p><strong>Preço:</strong> R$ {{ number_format($product->amount, 2, ',', '.') }}</p>
                             <p><strong>Estoque disponível:</strong> {{ $product->stock->quantity ?? 0 }}</p>
 
-                            <form action="{{ route('cart.add') }}" method="POST">
+                            <form action="{{ route('cart.add') }}" method="POST" class="d-flex flex-column gap-2">
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
 
-                                <select name="variance_id" class="form-select mb-2" required>
+                                <select name="variance_id" class="form-select" required>
                                     <option value="" disabled selected>Selecione a variação</option>
                                     @foreach($product->variances as $variance)
                                         <option value="{{ $variance->id }}">
@@ -27,8 +27,33 @@
                                     @endforeach
                                 </select>
 
-                                <button type="submit" class="btn btn-success w-100">Adicionar ao Carrinho</button>
+                                <input
+                                    type="hidden"
+                                    name="quantity"
+                                    min="1"
+                                    value="1"
+                                    class="form-control"
+                                    style="max-width: 100px;"
+                                    required
+                                    {{ ($product->stock->quantity ?? 0) <= 0 ? 'disabled' : '' }}
+                                >
+
+                                <button type="submit"
+                                        class="btn btn-success w-100"
+                                    {{ ($product->stock->quantity ?? 0) <= 0 ? 'disabled' : '' }}>
+                                    {{ ($product->stock->quantity ?? 0) <= 0 ? 'Fora de Estoque' : 'Adicionar ao Carrinho' }}
+                                </button>
                             </form>
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger mt-2">
+                                    <ul class="mb-0">
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
 
                         </div>
                     </div>
@@ -40,6 +65,4 @@
             {{ $products->links() }}
         </div>
     </div>
-
-
 @endsection

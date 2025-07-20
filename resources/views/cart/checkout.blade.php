@@ -25,9 +25,12 @@
 
                     @foreach(session('cart') as $index => $item)
                         @php
-                            $subtotal = $item['amount'] * $item['quantity'];
+                            $amount = $item['amount'];
+                            $quantity = $item['quantity'];
+                            $subtotal = $amount * $quantity;
                             $total += $subtotal;
                         @endphp
+
                         <tr>
                             <td>{{ $item['product_name'] }}</td>
                             <td>
@@ -62,16 +65,16 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="text/javascript">
-    $(document).ready(function() {
+        $(document).ready(function() {
             $('.quantity-select').on('change', function() {
-                var $row = $(this).closest('tr');
-                var unitamount = parseFloat($row.find('.unit-amount').data('amount'));
-                var quantity = parseInt($(this).val());
+                let $row = $(this).closest('tr');
+                let unitamount = parseFloat($row.find('.unit-amount').data('amount'));
+                let quantity = parseInt($(this).val());
 
-                var newSubtotal = unitamount * quantity;
+                let newSubtotal = unitamount * quantity;
                 $row.find('.subtotal').text(newSubtotal.toFixed(2).replace('.', ','));
 
-                var total = 0;
+                let total = 0;
                 $('.subtotal').each(function() {
                     total += parseFloat($(this).text().replace(',', '.'));
                 });

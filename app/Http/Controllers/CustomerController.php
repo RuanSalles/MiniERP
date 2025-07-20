@@ -55,8 +55,7 @@ class CustomerController extends Controller
         // Verifica se o cliente existe
         $customer = Customer::findOrFail($id);
 
-        // Remove qualquer ID de cliente anteriormente salvo
-        Session::forget('selected_customer_id');
+        Session::flush();
 
         // Cria uma nova sessão com o ID do cliente selecionado
         Session::put('selected_customer_id', $customer->id);

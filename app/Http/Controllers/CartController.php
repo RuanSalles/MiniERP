@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ProductVariance;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -28,11 +29,16 @@ class CartController extends Controller
             'variance_id' => 'required|exists:product_variances,id',
         ]);
 
+        $stock = Stock::where('product_id', $request->product_id)->first();
+
+        if (!$stock || $stock->quantity < $request->quantity) {
+            return back()->withErrors('Quantidade solicitada não disponível em estoque.');
+        }
+
         $product = Product::find($request->product_id);
         $variance = ProductVariance::find($request->variance_id);
 
         $cart = session()->get('cart', []);
-
         $cartItemKey = $product->id . '-' . $variance->id;
 
         if (!isset($cart[$cartItemKey])) {
@@ -46,10 +52,14 @@ class CartController extends Controller
                     'size' => $variance->size,
                     'isPrinted' => $variance->isPrinted,
                 ],
-                'quantity' => 1
+                'quantity' => (int) $request->quantity
             ];
         } else {
-            $cart[$cartItemKey]['quantity'] += 1;
+            $cart[$cartItemKey]['quantity'] += $request->quantity;
+            // opcional: limite máximo do estoque
+            if ($cart[$cartItemKey]['quantity'] > $stock->quantity) {
+                $cart[$cartItemKey]['quantity'] = $stock->quantity;
+            }
         }
 
         session()->put('cart', $cart);
