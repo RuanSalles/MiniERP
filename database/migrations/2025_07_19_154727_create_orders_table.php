@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('discount', 8, 2)->default(0);
             $table->foreignId('coupon_id')->nullable()->constrained('coupons');
             $table->enum('status', ['pending', 'processing', 'completed', 'cancelled'])->default('pending');
+            $table->decimal('shipping', 8, 2)->default(0)->nullable();
             $table->timestamps();
         });
     }

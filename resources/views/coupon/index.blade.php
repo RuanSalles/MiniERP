@@ -15,6 +15,7 @@
                     <th>Tipo</th>
                     <th>Valor</th>
                     <th>Validade</th>
+                    <th>Quantidade Restante</th>
                     <th>Ações</th>
                 </tr>
                 </thead>
@@ -28,6 +29,7 @@
                             {{ $coupon->type === 'percentage' ? $coupon->value . '%' : 'R$ ' . number_format($coupon->value, 2, ',', '.') }}
                         </td>
                         <td>{{ $coupon->expires_at ? $coupon->expires_at->format('d/m/Y') : 'Não definido' }}</td>
+                        <td>{{ $coupon->quantity }}</td>
                         <td>
                             <a href="{{ route('coupons.edit', $coupon->id) }}" class="btn btn-sm btn-primary">Editar</a>
 

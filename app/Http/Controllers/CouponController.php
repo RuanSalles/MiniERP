@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CouponRequest;
 use App\Models\Coupon;
+use App\Services\CouponService;
 use Illuminate\Http\Request;
 
 class CouponController extends Controller
 {
+    protected CouponService $couponService;
+
+    public function __construct(CouponService $couponService) {
+        $this->couponService = $couponService;
+    }
     public function index()
     {
         $coupons = Coupon::orderBy('created_at', 'desc')->paginate(10);
@@ -44,6 +50,13 @@ class CouponController extends Controller
     {
         $coupon->delete();
         return redirect()->route('coupons.index')->with('success', 'Cupom deletado com sucesso!');
+    }
+
+    public function loadCoupon($code)
+    {
+        $coupon = $this->couponService->findCoupon($code);
+
+        return response()->json($coupon);
     }
 }
 

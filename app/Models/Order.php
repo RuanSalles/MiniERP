@@ -13,5 +13,6 @@ class Order extends Model
         'discount',
         'coupon_id',
         'status',
+        'shipping',
     ];
 }

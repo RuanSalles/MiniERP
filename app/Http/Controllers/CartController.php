@@ -66,4 +66,17 @@ class CartController extends Controller
 
         return back()->with('success', 'Produto adicionado ao carrinho!');
     }
+
+    public function remove($index)
+    {
+        $cart = session('cart', []);
+
+        if (isset($cart[$index])) {
+            unset($cart[$index]);
+            session(['cart' => array_values($cart)]); // reindexa o array
+        }
+
+        return redirect()->back()->with('success', 'Produto removido do carrinho.');
+    }
+
 }
