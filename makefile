@@ -32,3 +32,6 @@ view: ## LIMPA AS VIEWS
 
 install: ## INSTALA AS DEPENDÊNCIAS
 	docker exec -it miniERP-nginx composer i
+
+container: ##entra no container da aplicação
+	docker exec -it miniERP-nginx /bin/bash

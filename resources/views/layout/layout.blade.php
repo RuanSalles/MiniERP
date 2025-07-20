@@ -73,10 +73,13 @@
                         <a class="nav-link" href="{{route('stocks.index')}}"><i class="bi bi-receipt"></i> Estoque</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('carts.index')}}"><i class="bi bi-gear"></i> Loja</a>
+                        <a class="nav-link" href="{{route('coupons.index')}}"><i class="bi bi-bookmark-plus"></i> Cupons</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('checkout')}}"><i class="bi bi-gear"></i> Finalizar Compra</a>
+                        <a class="nav-link" href="{{route('carts.index')}}"><i class="bi bi-shop"></i> Loja</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('checkout')}}"><i class="bi bi-cart-check-fill"></i> Finalizar Compra</a>
                     </li>
                 </ul>
             </div>

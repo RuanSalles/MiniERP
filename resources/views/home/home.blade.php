@@ -7,8 +7,8 @@
             <div class="col-md-4">
                 <div class="card text-bg-primary mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Usuários</h5>
-                        <p class="card-text">Total: 124</p>
+                        <h5 class="card-title">Clientes</h5>
+                        <p class="card-text">Total: {{ $data['customers'] }}</p>
                     </div>
                 </div>
             </div>
@@ -17,7 +17,7 @@
                 <div class="card text-bg-success mb-3">
                     <div class="card-body">
                         <h5 class="card-title">Produtos</h5>
-                        <p class="card-text">Total: 89</p>
+                        <p class="card-text">Total: {{ $data['products'] }}</p>
                     </div>
                 </div>
             </div>

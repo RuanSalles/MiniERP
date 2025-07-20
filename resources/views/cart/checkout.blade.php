@@ -1,8 +1,6 @@
 @extends('layout.layout')
 
 @section('container')
-
-
     <div class="container mt-5">
         <h2>Finalização do Pedido</h2>
 
