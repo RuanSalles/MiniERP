@@ -1,69 +1,83 @@
 @extends('layout.layout')
 
 @section('container')
-    <div class="container my-5">
-        <h1 class="mb-4">Finalizar Compra</h1>
 
-        <div class="row">
-            <!-- Formulário de dados do cliente -->
-            <div class="col-md-7">
-                <div class="card shadow-sm mb-4">
-                    <div class="card-header">
-                        <h5 class="mb-0">Informações do Cliente</h5>
-                    </div>
-                    <div class="card-body">
-                        <form>
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Nome Completo</label>
-                                <input type="text" class="form-control" id="name" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">E-mail</label>
-                                <input type="email" class="form-control" id="email" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="phone" class="form-label">Telefone</label>
-                                <input type="tel" class="form-control" id="phone" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="address" class="form-label">Endereço de Entrega</label>
-                                <textarea class="form-control" id="address" rows="3" required></textarea>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Resumo do pedido -->
-            <div class="col-md-5">
-                <div class="card shadow-sm">
-                    <div class="card-header">
-                        <h5 class="mb-0">Resumo do Pedido</h5>
-                    </div>
-                    <div class="card-body">
-                        <ul class="list-group mb-3">
-                            <li class="list-group-item d-flex justify-content-between">
-                                <span>Produto 1</span>
-                                <strong>R$ 99,90</strong>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between">
-                                <span>Produto 2</span>
-                                <strong>R$ 79,90</strong>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between">
-                                <span>Frete</span>
-                                <strong>R$ 15,00</strong>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between">
-                                <strong>Total</strong>
-                                <strong>R$ 194,80</strong>
-                            </li>
-                        </ul>
+    <div class="container mt-5">
+        <h2>Finalização do Pedido</h2>
 
-                        <button class="btn btn-success w-100">Finalizar Compra</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @if(session('cart') && count(session('cart')) > 0)
+            <form method="POST" >
+                @csrf
+
+                <table class="table table-bordered table-striped">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>Produto</th>
+                        <th>Variação</th>
+                        <th>Valor Unitário</th>
+                        <th>Quantidade</th>
+                        <th>Subtotal</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @php $total = 0; @endphp
+
+                    @foreach(session('cart') as $index => $item)
+                        @php
+                            $subtotal = $item['amount'] * $item['quantity'];
+                            $total += $subtotal;
+                        @endphp
+                        <tr>
+                            <td>{{ $item['product_name'] }}</td>
+                            <td>
+                                Cor: {{ $item['variance']['color'] ?? '' }} . <br>
+                                Tamanho: {{ $item['variance']['size'] ?? '' }}
+                            </td>
+                            <td>R$ <span class="unit-amount" data-amount="{{ $item['amount'] }}">{{ number_format($item['amount'], 2, ',', '.') }}</span></td>
+                            <td>
+                                <select name="quantities[{{ $index }}]" class="form-select quantity-select" required>
+                                    @for($i = 1; $i <= 10; $i++)
+                                        <option value="{{ $i }}" {{ $item['quantity'] == $i ? 'selected' : '' }}>{{ $i }}</option>
+                                    @endfor
+                                </select>
+                            </td>
+                            <td>R$ <span class="subtotal">{{ number_format($subtotal, 2, ',', '.') }}</span></td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                    <tfoot>
+                    <tr class="table-secondary">
+                        <td colspan="4" class="text-end fw-bold">Total:</td>
+                        <td class="fw-bold">R$ <span id="total-amount">{{ number_format($total, 2, ',', '.') }}</span></td>
+                    </tr>
+                    </tfoot>
+                </table>
+
+                <button type="submit" class="btn btn-success">Finalizar Pedido</button>
+            </form>
+        @else
+            <div class="alert alert-info">Seu carrinho está vazio.</div>
+        @endif
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+            $('.quantity-select').on('change', function() {
+                var $row = $(this).closest('tr');
+                var unitamount = parseFloat($row.find('.unit-amount').data('amount'));
+                var quantity = parseInt($(this).val());
+
+                var newSubtotal = unitamount * quantity;
+                $row.find('.subtotal').text(newSubtotal.toFixed(2).replace('.', ','));
+
+                var total = 0;
+                $('.subtotal').each(function() {
+                    total += parseFloat($(this).text().replace(',', '.'));
+                });
+                $('#total-amount').text(total.toFixed(2).replace('.', ','));
+            });
+        });
+    </script>
 @endsection
+

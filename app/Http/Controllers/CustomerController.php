@@ -6,6 +6,7 @@ use App\Http\Requests\CustomerRequest;
 use App\Models\Customer;
 use app\Services\CustomerService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Mockery\Exception;
 
 class CustomerController extends Controller
@@ -47,6 +48,20 @@ class CustomerController extends Controller
                 ->withInput()
                 ->with('error', 'Ocorreu um erro ao salvar o cliente.');
         }
+    }
+
+    public function select($id)
+    {
+        // Verifica se o cliente existe
+        $customer = Customer::findOrFail($id);
+
+        // Remove qualquer ID de cliente anteriormente salvo
+        Session::forget('selected_customer_id');
+
+        // Cria uma nova sessão com o ID do cliente selecionado
+        Session::put('selected_customer_id', $customer->id);
+
+        return redirect()->route('customers.index')->with('success', 'Cliente selecionado com sucesso!');
     }
 
 }
