@@ -22,16 +22,25 @@ class Webhook extends Controller
 
             // Define o novo status (fornecido ou aleatório)
             $newStatus = $status ?? $arrStatus[random_int(0, count($arrStatus) - 1)];
+
+            if($newStatus === 'cancelled') {
+                $order->carts()->delete();
+                $order->delete();
+            }
+
             $order->status = $newStatus;
             $order->save();
 
             // Atualiza os carts vinculados ao pedido para "finished"
             $order->carts()->update(['status' => 'finished']);
 
-            // Envia e-mail com resumo do pedido
-            if ($order->customer && $order->customer->email) {
-                Mail::to($order->customer->email)->send(new OrderSummaryMail($order));
+            if($status == 'completed' || $arrStatus == 'completed') {
+                if ($order->customer && $order->customer->email) {
+                    Mail::to($order->customer->email)->send(new OrderSummaryMail($order));
+                }
             }
+            // Envia e-mail com resumo do pedido
+
 
             return response()->json([
                 'message' => 'Status atualizado com sucesso',
