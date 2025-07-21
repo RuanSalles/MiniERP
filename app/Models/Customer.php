@@ -22,4 +22,9 @@ class Customer extends Model
         return $this->belongsTo(Address::class, 'address_id');
     }
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
 }

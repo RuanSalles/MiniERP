@@ -26,7 +26,7 @@
                 <div class="card text-bg-warning mb-3">
                     <div class="card-body">
                         <h5 class="card-title">Pedidos Pendentes</h5>
-                        <p class="card-text">Total: 17</p>
+                        <p class="card-text">Total: {{$data['orders']}}</p>
                     </div>
                 </div>
             </div>

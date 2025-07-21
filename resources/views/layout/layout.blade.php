@@ -67,6 +67,10 @@
                             Clientes</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{route('orders.index')}}"><i class="bi bi-card-checklist"></i>
+                            Pedidos</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{route('products.index')}}"><i class="bi bi-box"></i> Produtos</a>
                     </li>
                     <li class="nav-item">

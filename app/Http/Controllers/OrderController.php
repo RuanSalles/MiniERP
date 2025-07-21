@@ -23,6 +23,30 @@ class OrderController extends Controller
         $this->stockService = $stockService;
     }
 
+    public function index()
+    {
+        // Pega o customer_id da sessão
+        $customer_id = Session::get('selected_customer_id');
+
+        if (!$customer_id) {
+            // Se não tiver cliente selecionado, pode redirecionar ou mostrar mensagem
+            return redirect()->back()->with('error', 'Cliente não selecionado.');
+        }
+
+        // Busca os pedidos do cliente com os relacionamentos, ordenando e paginando
+        $orders = Order::with(['customer', 'coupon'])
+            ->where('customer_id', $customer_id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(15);
+
+        // Debug - remover na produção
+        // dd($orders);
+
+        return view('order.index', [
+            'orders' => $orders,
+        ]);
+    }
+
     /**
      * @throws \Throwable
      */
