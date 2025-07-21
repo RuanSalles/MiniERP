@@ -22,6 +22,8 @@ Route::resource('stocks', StockController::class);
 Route::resource('products', ProductController::class);
 Route::resource('carts', CartController::class);
 Route::get('webhook/{id}/{status}', [Webhook::class, 'updateStatus']);
+Route::get('/orders/{order}/pdf', [OrderController::class, 'generatePdf'])->name('orders.pdf');
+
 
 Route::resource('orders', OrderController::class);
 Route::resource('coupons', CouponController::class);

@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Services\CartService;
 use App\Services\CouponService;
 use App\Services\StockService;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Session;
@@ -88,19 +89,6 @@ class OrderController extends Controller
             $cupom->decrement('quantity');
         }
 
-        // Aqui você pode armazenar o pedido no banco de dados, por exemplo:
-        /*
-        $order = Order::create([
-            'user_id' => auth()->id(),
-            'cep' => $data['cep'],
-            'subtotal' => $data['subtotal'],
-            'discount' => $data['discount_value'],
-            'freight' => $data['freight_value'],
-            'total' => $data['final_total'],
-            'coupon_id' => $cupom?->id,
-        ]);
-        */
-
         // Armazena tudo na sessão
         Session::put('checkout', [
             'cep' => $data['cep'],
@@ -140,4 +128,17 @@ class OrderController extends Controller
 
         return redirect()->route('home.index')->with('message', 'Pedido processado com sucesso!');
     }
+
+    public function generatePdf($orderId)
+    {
+        $order = Order::with('customer', 'carts')->findOrFail($orderId);
+
+        $pdf = Pdf::loadView('emails.order_summary', [
+            'order' => $order,
+            'customer' => $order->customer
+        ]);
+
+        return $pdf->stream("pedido_{$order->id}.pdf");
+    }
+
 }

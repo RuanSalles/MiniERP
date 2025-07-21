@@ -86,6 +86,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->variances()->delete(); // deleta as variações primeiro
+        $product->stock()->delete();
         $product->delete();
 
         return redirect()->route('products.index')->with('success', 'Produto excluído com sucesso!');

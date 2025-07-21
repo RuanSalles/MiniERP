@@ -11,9 +11,12 @@ class StockService
         try {
             foreach ($data['products'] as $item) {
                 foreach ($data['order']['quantities'] as $quantity) {
-                    Stock::where('id', $item['product_id'])->update([
-                        'quantity' => $quantity,
-                    ]);
+                    $stock = Stock::where('product_id', $item['product_id'])->first();
+                    if($stock['quantity'] >= $quantity) {
+                        $stock->decrement('quantity', $quantity);
+                    } else {
+                        return redirect()->route('orders.index')->with('error', 'Não temos produtos suficiente no sistema');
+                    }
                 }
             }
             return true;

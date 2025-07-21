@@ -34,7 +34,7 @@
             </table>
 
             {{-- Paginação --}}
-
+            {{ $orders->links() }}
         @else
             <div class="alert alert-info">Nenhum pedido encontrado.</div>
         @endif
