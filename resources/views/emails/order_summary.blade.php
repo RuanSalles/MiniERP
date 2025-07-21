@@ -65,7 +65,7 @@
         Caso tenha dúvidas, entre em contato com nosso suporte.
     </p>
 
-    <p style="font-size: 14px; color: #999;">Equipe DevStore</p>
+    <p style="font-size: 14px; color: #999;">Equipe MiniERP</p>
 </div>
 
 </body>

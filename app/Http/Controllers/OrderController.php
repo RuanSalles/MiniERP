@@ -108,6 +108,15 @@ class OrderController extends Controller
             'customer_id' => session('selected_customer_id'),
         ];
 
+
+
+        foreach ($data['products'] as $index => &$product) {
+            if (isset($data['order']['quantities'][$index])) {
+                $product['quantity'] = (int) $data['order']['quantities'][$index];
+            }
+        }
+        unset($product); // Boa prática para evitar referências posteriores
+
         if($data['order']['coupon_code']) {
             $coupon = $this->couponService->findCoupon($data['order']['coupon_code']);
         }
