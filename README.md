@@ -1,61 +1,93 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# MiniERP 
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Contexto
+Projeto realizado como teste técnico com intuito de criar um ERP com funcionalidades padrão de cadastro de clientes, produtos, estoque, carrinho e checkout, além de Webhook para realizar a devida atualização dos status dos pedidos.
 
-## About Laravel
+## Técnologias utilizadas
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+![PhpStorm](https://img.shields.io/badge/phpstorm-143?style=for-the-badge&logo=phpstorm&logoColor=black&color=black&labelColor=darkorchid)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)
+![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
+![jQuery](https://img.shields.io/badge/jquery-%230769AD.svg?style=for-the-badge&logo=jquery&logoColor=white)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Como configurar o projeto
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Para facilitar instalações e execução do projeto o mesmo está configurado com Docker, bastanto ter o Docker instalado e subir os containers já está com todos os recursos necessários para utilização do projeto.
 
-## Learning Laravel
+### Clone o projeto
+~~~bash
+  git clone git@github.com:RuanSalles/MiniERP.git
+~~~
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Renomeie o arquivo .env.example para .env e configure as chaves de ambiente
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+~~~bash
+ 
+MAIL_MAILER=smtp
+MAIL_HOST=
+MAIL_PORT=
+MAIL_USERNAME=
+MAIL_PASSWORD=
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS=from@example.com
+MAIL_FROM_NAME="MiniERP"
+~~~
+OBS: As demais configurações já estão realizadas no .env
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+O projeto utiliza também makefile para facilitar a execução de comandos de configuração e execuções dentro dos containers, então resta apenas executar o comando para subir os containers.
 
-## Laravel Sponsors
+~~~bash
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+docker compose up -d
+docker-compose up -d
+~~~
 
-### Premium Partners
+Obs: Dependendo da versão do seu docker e docker-compose, execute  um dos comandos para rodar a inicialização dos containers.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Baixando dependências, iniciando projeto, populando o banco, configurando chaves da aplicação execute
 
-## Contributing
+~~~bash
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+make init
+~~~
 
-## Code of Conduct
+Obs: O comando acima já faz a execução da criação da chave de aplicação, roda as migrações e seeds para criar e popular o banco.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+#### Para execução efetiva do projeto acesse http://localhost todas as ações estão configuradas visualmente, as únicas tabelas que não são populadas automaticamente, são pedidos e estoque, sendo estoque escolhido pelo usuário a quantidade de produtos já cadastrados e pedidos populada automaticamente ao realizar checkout da compra.
 
-## Security Vulnerabilities
+Para executar o início das funcionalidades, clique em Selecionar Cliente, para salvar na sessão o cliente a qual o pedido fará ligação.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+![img.png](img.png)
 
-## License
+No Menu de Estoque, configure o produto e a quantidade desejada
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+![img_1.png](img_1.png)
+
+Vá até o menu Loja e inicie a adição de produtos ao carrinho, pondendo ser adicionados produtos que estão com estoque, os que estiverem com a quantidade zero são desabilitados por padrão. Selecione também a variação do produto. 
+
+![img_2.png](img_2.png)
+
+Ao por ao menos um item no seu carrinhho, será habilitado o Menu na lateral esquerda para *Finalizar Compra*
+
+![img_3.png](img_3.png)
+
+O sistema automaticamente valida o valor do frete ao preencher o cep para entrega com as regras solicitadas no teste, aplique também cupons para desconto
+
+![img_4.png](img_4.png)
+
+Por fim finalize a compra e vá até o Menu de pedidos, se o usuário selecionado ainda for o mesmo, você poderá ver seus pedidos
+
+![img_5.png](img_5.png)
+
+O seu pedido está com o status padrão de pendente, para executar a modificação do status, você poderá executar no seu navegador o link: http://localhost/webhook/{id_pedido}/{status_desejado}, os status permitidos são 'processing', 'completed', 'cancelled'.
+
+Obs: Em caso de enviar o status completed, você receberá um email confirmando sua compra e com o resumo da mesma:
+
+![img_6.png](img_6.png)
+![img_7.png](img_7.png)
+
+## Da Licença
+
+O projeto foi realizado com intuito de realizar teste técnico porém, poderá ser utilizado por terceiro como método de estudos.
